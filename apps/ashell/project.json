@@ -1,0 +1,96 @@
+{
+  "projectType": "application",
+  "sourceRoot": "apps/ashell/src",
+  "prefix": "mfe-lab",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/angular:webpack-browser",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/apps/ashell",
+        "index": "apps/ashell/src/index.html",
+        "main": "apps/ashell/src/main.ts",
+        "polyfills": "apps/ashell/src/polyfills.ts",
+        "tsConfig": "apps/ashell/tsconfig.app.json",
+        "assets": ["apps/ashell/src/favicon.ico", "apps/ashell/src/assets"],
+        "styles": ["apps/ashell/src/styles.css"],
+        "scripts": [],
+        "customWebpackConfig": {
+          "path": "apps/ashell/webpack.config.js"
+        }
+      },
+      "configurations": {
+        "production": {
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "500kb",
+              "maximumError": "1mb"
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "2kb",
+              "maximumError": "4kb"
+            }
+          ],
+          "fileReplacements": [
+            {
+              "replace": "apps/ashell/src/environments/environment.ts",
+              "with": "apps/ashell/src/environments/environment.prod.ts"
+            }
+          ],
+          "outputHashing": "all",
+          "customWebpackConfig": {
+            "path": "apps/ashell/webpack.prod.config.js"
+          }
+        },
+        "development": {
+          "buildOptimizer": false,
+          "optimization": false,
+          "vendorChunk": true,
+          "extractLicenses": false,
+          "sourceMap": true,
+          "namedChunks": true
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "serve": {
+      "executor": "@nrwl/angular:module-federation-dev-server",
+      "configurations": {
+        "production": {
+          "browserTarget": "ashell:build:production"
+        },
+        "development": {
+          "browserTarget": "ashell:build:development"
+        }
+      },
+      "defaultConfiguration": "development",
+      "options": {
+        "port": 3000,
+        "publicHost": "http://localhost:3000"
+      }
+    },
+    "extract-i18n": {
+      "executor": "@angular-devkit/build-angular:extract-i18n",
+      "options": {
+        "browserTarget": "ashell:build"
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": ["apps/ashell/**/*.ts", "apps/ashell/**/*.html"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/apps/ashell"],
+      "options": {
+        "jestConfig": "apps/ashell/jest.config.ts",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}
