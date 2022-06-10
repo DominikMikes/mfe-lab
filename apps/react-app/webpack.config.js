@@ -1,53 +1,31 @@
-const ModuleFederationPlugin = require("webpack/lib/container/ModuleFederationPlugin");
-const CopyWebpackPlugin = require("copy-webpack-plugin");
+const { ModuleFederationPlugin } = require('webpack').container;
+const deps = require('../../package.json').dependencies;
 
-module.exports = options => {
+module.exports = (config, context) => {
   return {
-    entry: './src/index.js',
-    output: {
-      filename: 'bundle.js',
-      publicPath: "auto",
-      uniqueName: "mfe4"
-    },
-    module: {
-      rules: [
-        {
-          test: /.js$/,
-          exclude: /node_modules/,
-          use: [
-            {
-              loader: 'babel-loader',
-              options: {
-                cacheDirectory: true,
-                presets: ['@babel/react', '@babel/env']
-              }
-            },
-          ],
-        },
-      ],
-    },
+    ...config,
     plugins: [
+      ...config.plugins,
       new ModuleFederationPlugin({
-
-          // For remotes (please adjust)
-          name: "react-app",
-          library: { type: "var", name: "react" },
-          filename: "remoteEntry.js", // <-- Meta Data
-          exposes: {
-              './web-components': './src/app/app.tsx',
+        name: 'reactApp',
+        filename: 'remoteEntry.js',
+        exposes: {
+          './RemoteEntry': './src/app/components/RemoteEntry',
+        },
+        shared: {
+          ...deps,
+          react: {
+            singleton: true,
+            eager: true,
+            requiredVersion: deps.react,
           },
-          // shared: ["react", "react-dom"]
-        }),
-        new CopyWebpackPlugin({
-          patterns: [
-            {
-              from: './*.html'
-            }
-          ]
-        })
+          'react-dom': {
+            singleton: true,
+            eager: true,
+            requiredVersion: deps['react-dom'],
+          },
+        },
+      }),
     ],
-    devServer: {
-      port: 4204
-    }
-  }
-}
+  };
+};
