@@ -1,10 +1,23 @@
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-import styles from './app.module.css';
+import React from 'react'
+import ReactDOM from 'react-dom'
 
-export function App() {
-  return (
-    <div>React Remote app</div>
-  );
+class App extends React.Component {
+
+  override render() {
+    return ([
+        <h1>
+          Remote React
+          <img src="https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg" height="30"></img>
+        </h1>,
+    ])
+  }
 }
 
+class ChildReactElement extends HTMLElement {
+  connectedCallback() {
+    ReactDOM.render(<App/>, this);
+  }
+}
+
+customElements.define('child-react-element', ChildReactElement);
 export default App;
