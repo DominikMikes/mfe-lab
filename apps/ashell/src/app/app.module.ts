@@ -15,6 +15,12 @@ import { RouterModule } from '@angular/router';
           loadChildren: () =>
             import('ng-app/Module').then((m) => m.RemoteEntryModule),
         },
+        {
+          path: '',
+          outlet: 'react',
+          loadChildren: () =>
+            import('react-remote/Module').then((m) => m.RemoteEntryModule),
+        },
       ],
       { initialNavigation: 'enabledBlocking' }
     ),

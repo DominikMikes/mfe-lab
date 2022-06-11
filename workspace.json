@@ -8,6 +8,8 @@
     "ng-app-e2e": "apps/ng-app-e2e",
     "react-app": "apps/react-app",
     "react-app-e2e": "apps/react-app-e2e",
+    "react-remote": "apps/react-remote",
+    "react-remote-e2e": "apps/react-remote-e2e",
     "rremote": "apps/rremote",
     "rremote-e2e": "apps/rremote-e2e",
     "rshell": "apps/rshell",

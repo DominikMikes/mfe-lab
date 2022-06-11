@@ -1,2 +1,2 @@
 declare module 'ng-app/Module';
-declare module 'rremote/RemoteEntry';
+declare module 'react-remote/Module';
