@@ -1,0 +1,81 @@
+{
+  "$schema": "..\\..\\node_modules\\nx\\schemas\\project-schema.json",
+  "sourceRoot": "apps/rremote/src",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/web:webpack",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "compiler": "babel",
+        "outputPath": "dist/apps/rremote",
+        "index": "apps/rremote/src/index.html",
+        "baseHref": "/",
+        "main": "apps/rremote/src/index.tsx",
+        "polyfills": "apps/rremote/src/polyfills.ts",
+        "tsConfig": "apps/rremote/tsconfig.app.json",
+        "assets": ["apps/rremote/src/favicon.ico", "apps/rremote/src/assets"],
+        "styles": ["apps/rremote/src/styles.css"],
+        "scripts": [],
+        "webpackConfig": "apps/react-app/webpack.config.js"
+      },
+      "configurations": {
+        "development": {
+          "extractLicenses": false,
+          "optimization": false,
+          "sourceMap": true,
+          "vendorChunk": true
+        },
+        "production": {
+          "fileReplacements": [
+            {
+              "replace": "apps/rremote/src/environments/environment.ts",
+              "with": "apps/rremote/src/environments/environment.prod.ts"
+            }
+          ],
+          "optimization": true,
+          "outputHashing": "all",
+          "sourceMap": false,
+          "namedChunks": false,
+          "extractLicenses": true,
+          "vendorChunk": false
+        }
+      }
+    },
+    "serve": {
+      "executor": "@nrwl/web:dev-server",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "rremote:build",
+        "hmr": true,
+        "port": 5002
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "rremote:build:development"
+        },
+        "production": {
+          "buildTarget": "rremote:build:production",
+          "hmr": false
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/rremote/**/*.{ts,tsx,js,jsx}"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/apps/rremote"],
+      "options": {
+        "jestConfig": "apps/rremote/jest.config.ts",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}
