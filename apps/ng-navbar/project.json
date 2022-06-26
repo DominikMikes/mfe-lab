@@ -1,0 +1,118 @@
+{
+  "projectType": "application",
+  "sourceRoot": "apps/ng-navbar/src",
+  "prefix": "mfe-lab",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/angular:webpack-browser",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/apps/ng-navbar",
+        "index": "apps/ng-navbar/src/index.html",
+        "main": "apps/ng-navbar/src/main.ts",
+        "polyfills": "apps/ng-navbar/src/polyfills.ts",
+        "tsConfig": "apps/ng-navbar/tsconfig.app.json",
+        "assets": [
+          "apps/ng-navbar/src/favicon.ico",
+          "apps/ng-navbar/src/assets"
+        ],
+        "styles": ["apps/ng-navbar/src/styles.css"],
+        "scripts": [],
+        "customWebpackConfig": {
+          "path": "apps/ng-navbar/webpack.config.js"
+        }
+      },
+      "configurations": {
+        "production": {
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "500kb",
+              "maximumError": "1mb"
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "2kb",
+              "maximumError": "4kb"
+            }
+          ],
+          "fileReplacements": [
+            {
+              "replace": "apps/ng-navbar/src/environments/environment.ts",
+              "with": "apps/ng-navbar/src/environments/environment.prod.ts"
+            }
+          ],
+          "outputHashing": "all",
+          "customWebpackConfig": {
+            "path": "apps/ng-navbar/webpack.prod.config.js"
+          }
+        },
+        "development": {
+          "buildOptimizer": false,
+          "optimization": false,
+          "vendorChunk": true,
+          "extractLicenses": false,
+          "sourceMap": true,
+          "namedChunks": true
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "serve": {
+      "executor": "@nrwl/angular:webpack-server",
+      "configurations": {
+        "production": {
+          "browserTarget": "ng-navbar:build:production"
+        },
+        "development": {
+          "browserTarget": "ng-navbar:build:development"
+        }
+      },
+      "defaultConfiguration": "development",
+      "options": {
+        "port": 4201,
+        "publicHost": "http://localhost:4201"
+      }
+    },
+    "extract-i18n": {
+      "executor": "@angular-devkit/build-angular:extract-i18n",
+      "options": {
+        "browserTarget": "ng-navbar:build"
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "apps/ng-navbar/**/*.ts",
+          "apps/ng-navbar/**/*.html"
+        ]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/apps/ng-navbar"],
+      "options": {
+        "jestConfig": "apps/ng-navbar/jest.config.ts",
+        "passWithNoTests": true
+      }
+    },
+    "serve-static": {
+      "executor": "@nrwl/angular:file-server",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "ng-navbar:build",
+        "port": 4201
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "ng-navbar:build:development"
+        },
+        "production": {
+          "buildTarget": "ng-navbar:build:production"
+        }
+      }
+    }
+  },
+  "tags": []
+}

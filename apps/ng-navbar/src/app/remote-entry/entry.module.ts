@@ -3,10 +3,10 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 
 import { RemoteEntryComponent } from './entry.component';
-import { CounterComponent } from '../components/counter/counter.component';
+import { NavComponent } from '../components/nav/nav.component';
 
 @NgModule({
-  declarations: [RemoteEntryComponent, CounterComponent],
+  declarations: [RemoteEntryComponent, NavComponent],
   imports: [
     CommonModule,
     RouterModule.forChild([

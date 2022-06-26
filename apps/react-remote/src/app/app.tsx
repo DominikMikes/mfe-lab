@@ -1,14 +1,18 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
+import Counter from '../components/counter/counter';
 
 class App extends React.Component {
 
   override render() {
     return ([
-        <h1>
-          Remote React
-          <img src="https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg" height="30"></img>
-        </h1>,
+        <div>
+          <h1>
+            Remote React
+            <img src="https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg" height="30"></img>
+          </h1>
+          <Counter></Counter>
+        </div>,
     ])
   }
 }
